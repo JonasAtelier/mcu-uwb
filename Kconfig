@@ -1,0 +1,30 @@
+# Read by ESP-IDF as a component Kconfig, and by both forges' `make menu`
+# (scripts/menu.py) for the UWB_<CHIP> prompts. stm-forge has no Kconfig
+# build step: its build only sees the defconfig lines, as
+# -DCONFIG_UWB_<CHIP>=1 or 0. Every chip is off unless set.
+menuconfig UWB
+    bool "UWB transceiver subsystem"
+    default y
+    help
+        The UWB core: struct uwb_dev, uwb_send(), uwb_recv(), the hardware
+        timestamps and the uwb_* log helpers. Pick the chip drivers you need
+        below; none is built by default, so a chip missing from sdkconfig is
+        off.
+
+if UWB
+
+    config UWB_DW1000
+        bool "Decawave DW1000 (SPI, two-way ranging)"
+        default n
+        help
+            Build the DW1000 driver: dw1000_init(), dw1000_twr_range() and
+            friends.
+
+    config UWB_DEBUG
+        bool "uwb_dbg() lines"
+        default n
+        help
+            STM32 HAL only: compile uwb_dbg() lines in. On ESP-IDF uwb_dbg()
+            is ESP_LOGD and the log level decides.
+
+endif # UWB
