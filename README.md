@@ -26,7 +26,8 @@ component directory `uwb` as well.
 > **Hardware unverified.** Host tests use a simulated DW1000 and platform
 > stubs. Nothing here has run on a physical chip.
 
-[Supported hardware](#supported-hardware) · [Install](#install) ·
+[Supported hardware](#supported-hardware) · [Drivers](#drivers) ·
+[Install](#install) ·
 [Quick start](#quick-start) · [Examples](#examples) ·
 [Documentation](#documentation) · [Tests](#tests)
 
@@ -34,9 +35,23 @@ component directory `uwb` as well.
 
 | Chip | Interface | Notes |
 |---|---|---|
-| **DW1000** (DWM1000 module) | SPI mode 0, 2 MHz until the PLL locks, then up to 20 MHz | channels 1–5 and 7, 110 k / 850 k / 6.8 Mbps, PRF 16/64 MHz; 40-bit timestamps of 15.65 ps; four-frame asymmetric double-sided ranging; IRQ pin optional |
+| **DW1000** (DWM1000 module) | SPI | Decawave UWB transceiver |
 
 Wiring is in the [wiring guide](docs/hardware.md).
+
+## Drivers
+
+<details><summary><b>DW1000</b> (DWM1000 module) — SPI</summary>
+
+Channels 1–5 and 7, 110 k / 850 k / 6.8 Mbps, PRF 16/64 MHz; 40-bit timestamps
+of 15.65 ps; four-frame asymmetric double-sided ranging; IRQ pin optional.
+
+- Interface: SPI mode 0, 2 MHz until the PLL locks, then up to 20 MHz
+- Examples: ESP-IDF [dw1000](examples/esp/dw1000/) · STM32 HAL
+  [dw1000](examples/stm/dw1000/main.c)
+- Chip reference: [DW1000](docs/chips.md#dw1000)
+
+</details>
 
 ## Install
 
@@ -126,9 +141,7 @@ PRF, preamble length and preamble code must match on both.
 
 ## Examples
 
-| Chip | ESP-IDF | STM32 HAL |
-|---|---|---|
-| DW1000 | [dw1000](examples/esp/dw1000/) | [dw1000](examples/stm/dw1000/main.c) |
+Each driver's examples are listed under [Drivers](#drivers).
 
 Both are two-board ranging demos with a `ROLE_INITIATOR` switch: build twice,
 flash two boards. ESP-IDF examples locate this library through
