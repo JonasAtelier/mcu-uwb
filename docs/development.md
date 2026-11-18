@@ -32,7 +32,8 @@ examples/
   stm/dw1000/               STM32 snippet of the same
 docs/                       the five guides; the DS and UM PDFs here are gitignored
 assets/                     README photo
-CMakeLists.txt              ESP-IDF only; stm-forge globs src/**/*.c instead
+CMakeLists.txt              ESP-IDF component; elsewhere a static library for add_subdirectory(); stm-forge globs src/**/*.c instead
+                            the static library's options are Kconfig's bool entries, found by the type line directly under each `config`
 Kconfig                     UWB and UWB_<CHIP>, for ESP-IDF and both forges' menus
 idf_component.yml           ESP-IDF component manifest
 ```
@@ -114,7 +115,8 @@ payload as `tx`, a read's payload as `rx`, all under one chip select.
    check identity, configure, and only on success set `uwb.ops`,
    `uwb.priv` and the configuration fields. Check every bus transfer. Work
    in errno; return `UWB_HANDLE_RET(err)`.
-4. Add `CONFIG_UWB_FOO` to the no-chip checks in `CMakeLists.txt` and
+4. Add `CONFIG_UWB_FOO` to the no-chip checks in `CMakeLists.txt` (its
+   ESP-IDF part; the `add_subdirectory()` part reads `Kconfig`) and
    `src/uwb_port_stm.c`, a HAL module `#error` to `src/uwb_priv.h` if it
    needs one, its sources to `CMakeLists.txt`, a `config UWB_FOO` to
    `Kconfig`, `# UWB_FOO is not set` to both forges' defconfigs, and its

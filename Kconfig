@@ -2,6 +2,8 @@
 # (scripts/menu.py) for the UWB_<CHIP> prompts. stm-forge has no Kconfig
 # build step: its build only sees the defconfig lines, as
 # -DCONFIG_UWB_<CHIP>=1 or 0. Every chip is off unless set.
+# Outside ESP-IDF, CMakeLists.txt takes its options from the bool entries
+# here, found by their type line: keep `bool` directly under each `config`.
 menuconfig UWB
     bool "UWB transceiver subsystem"
     default y
