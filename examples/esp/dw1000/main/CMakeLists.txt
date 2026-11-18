@@ -1,1 +1,1 @@
-idf_component_register(SRCS "main.c" REQUIRES uwb driver)
+idf_component_register(SRCS "main.c")
