@@ -1,6 +1,6 @@
 version: "0.1.0"
 description: mcu-uwb UWB transceiver subsystem for ESP-IDF and STM32 HAL, with the DW1000 driver and double-sided two-way ranging.
-license: MIT
+license: GPL-3.0-only
 dependencies:
   idf:
     version: ">=5.2"
